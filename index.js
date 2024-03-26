@@ -1,10 +1,11 @@
+require('dotenv').config()
 const express = require('express');
 var cors = require('cors');
 const mongoose = require('mongoose');
 const Game = require('./models/game');
 const Casino = require('./models/casino');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
 
 app.use(cors())
 app.use(express.json())
@@ -41,8 +42,7 @@ app.post('/games', async(req, res) => {
 app.post('/calculate-coins', (req, res) => {
   const debugResults = req.body;
   console.log(debugResults)
-
-
+  
   const calculateCoinsWon = (debugResults) => {
     let coinsWon = 0;
     const rewards = {
@@ -69,7 +69,6 @@ const coinsWon = calculateCoinsWon(debugResults);
 
 // Return coinsWon to frontend
 res.json({ coinsWon });
-
 });
 
 
