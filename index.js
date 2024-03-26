@@ -76,9 +76,12 @@ res.json({ coinsWon });
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-main().catch(err => console.log(err));
+main().then(()=> console.log("connected")).catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb+srv://shamnaep0810:lFaAGsgyyh7eiJ3H@cluster0.hq8acba.mongodb.net/?retryWrites=true&w=majority');
+  const url= process.env.DB_URL
+  const password = process.env.DB_PASSWORD
+  const urlwithPassword = url.replace('<password>', password)
+  await mongoose.connect(urlwithPassword);
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
